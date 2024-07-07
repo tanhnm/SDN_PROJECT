@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react";
-import styles from "./Order.module.scss";
-import MyAxios from "setup/configAxios";
-import axios from "axios";
-import OrderList from "./OrderList/OrderList";
+import { useEffect, useState } from 'react';
+import styles from './Order.module.scss';
+import MyAxios from 'setup/configAxios';
+import axios from 'axios';
+import OrderList from './OrderList/OrderList';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
-  // cartDetails
+  const navigate = useNavigate();
   const [cartDetails, setCartDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [userInfo, setUserInfo] = useState();
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [address, setAddress] = useState({ street: '', district: '', city: '' });
+  const [paymentMethod, setPaymentMethod] = useState('');
 
-  // Load cart details from local storage
   useEffect(() => {
-    const shopCart = localStorage.getItem("shopCart");
+    const shopCart = localStorage.getItem('shopCart');
     if (shopCart) {
       const data = JSON.parse(shopCart);
       const details = data.map((item) => ({
@@ -20,16 +28,13 @@ const Order = () => {
       setCartDetails(details);
     }
   }, []);
-  //get in4 of user
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [userInfo, setUserInfo] = useState();
+
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem('userId');
     MyAxios.get(`http://localhost:5000/api/v1/user/${userId}`)
       .then((res) => {
         setUserInfo(res.data);
-        console.log("res", userInfo);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error);
@@ -37,42 +42,26 @@ const Order = () => {
       });
   }, []);
 
-  // get Province and districts
-
-  const [provinces, setProvinces] = useState([]);
-  const [districts, setDistricts] = useState([]);
-
-  // get address
-  const [address, setAddress] = useState({
-    street: "",
-    district: "",
-    city: "",
-  });
-
-  //GET DATA PROVINCES AND
   useEffect(() => {
-    // Lấy tỉnh thành
     const getProvinces = async () => {
       try {
-        const response = await axios.get("https://esgoo.net/api-tinhthanh/1/0.htm");
+        const response = await axios.get('https://esgoo.net/api-tinhthanh/1/0.htm');
         setProvinces(response.data.data);
       } catch (error) {
         console.error(error);
       }
     };
-
     getProvinces();
   }, []);
 
   const handleProvinceChange = async (e) => {
     const selectedProvinceId = e.target.value;
-    const dis = provinces.find((a) => a.full_name == selectedProvinceId);
+    const dis = provinces.find((a) => a.full_name === selectedProvinceId);
     setAddress((prevAddress) => ({
       ...prevAddress,
       city: selectedProvinceId,
-      district: "", // Reset district when province changes
+      district: '',
     }));
-    // Lấy quận huyện
     if (dis) {
       try {
         const response = await axios.get(`https://esgoo.net/api-tinhthanh/2/${dis.id}.htm`);
@@ -90,8 +79,6 @@ const Order = () => {
       [name]: value,
     }));
   };
-  // payment
-  const [paymentMethod, setPaymentMethod] = useState("");
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -100,152 +87,133 @@ const Order = () => {
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     const dataToSend = {
-      userId: localStorage.getItem("userId"),
+      userId: localStorage.getItem('userId'),
       addressShipping: address,
       paymentMethod: paymentMethod,
       cartDetails,
     };
-    console.log("data", dataToSend);
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/orders", dataToSend);
-
-      if (response.status === 200) {
-        console.log("Dữ liệu đã được gửi thành công!");
+      const response = await MyAxios.post('http://localhost:5000/api/v1/orders', dataToSend);
+      console.log(response);
+      if (response.status === 'success') {
+        toast.success('Đặt hàng thành công!');
+        localStorage.setItem('shopCart', []);
+        navigate('/');
+        setCartDetails([]);
       } else {
-        console.error("Gửi dữ liệu thất bại");
+        toast.error('Đặt hàng thất bại!');
       }
     } catch (error) {
-      console.error("Lỗi khi gửi dữ liệu", error);
+      console.error('Lỗi khi gửi dữ liệu', error);
+      toast.error('Đặt hàng thất bại! Lỗi khi gửi dữ liệu');
     }
   };
 
-  console.log("ca", cartDetails);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return userInfo ? (
-    <div className={styles["container"]}>
-      <div className={styles["title"]}>Thanh toán</div>
-      <form className={styles["order-info-form"]} onSubmit={handleSubmitOrder}>
-        <div className={styles["content"]}>
-          <div className={styles["order-info-left"]}>
-            <div className={styles["content-title"]}>
-              <h3 className={styles["text"]}>Thông tin thanh toán</h3>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Checkout</h1>
+      <form className={styles.form} onSubmit={handleSubmitOrder}>
+        <div className={styles.grid}>
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle}>Billing Information</h2>
+            <div className={styles.field}>
+              <label className={styles.label}>Full Name</label>
+              <input className={styles.input} type='text' value={userInfo.name} disabled />
             </div>
-
-            <div className={styles["name-info"]}>
-              <p className={styles["text"]}>Họ và tên</p>
-              <input
-                className={styles["input-text"]}
-                type="text"
-                placeholder="Họ tên của bạn"
-                value={userInfo.name}
-                disabled
-              />
-            </div>
-            <div className={styles["phone-email-info"]}>
-              <div className={styles["phone-info"]}>
-                <p className={styles["text"]}>Số điện thoại</p>
-                <input
-                  className={styles["input-text"]}
-                  type="tel"
-                  placeholder="Số điện thoại của bạn"
-                  value={userInfo.phone}
-                  disabled
-                />
+            <div className={styles.fieldGroup}>
+              <div className={styles.field}>
+                <label className={styles.label}>Phone Number</label>
+                <input className={styles.input} type='tel' value={userInfo.phone} disabled />
               </div>
-              <div className={styles["email-info"]}>
-                <p className={styles["text"]}>Địa chỉ email</p>
-                <input
-                  className={styles["input-text"]}
-                  type="email"
-                  placeholder=" Email của bạn"
-                  value={userInfo.email}
-                  disabled
-                />
+              <div className={styles.field}>
+                <label className={styles.label}>Email Address</label>
+                <input className={styles.input} type='email' value={userInfo.email} disabled />
               </div>
             </div>
-            <div className={styles["address-info"]}>
-              <div className={styles["provice-info"]}>
-                <p className={styles["text"]}>Tỉnh/Thành phố</p>
-                <select id="province" className={styles["select"]} onChange={handleProvinceChange} value={address.city}>
-                  <option disabled value="">
-                    Select Provinces ...
+            <div className={styles.field}>
+              <label className={styles.label}>Province/City</label>
+              <select
+                id='province'
+                className={styles.select}
+                onChange={handleProvinceChange}
+                value={address.city}
+              >
+                <option disabled value=''>
+                  Select Province...
+                </option>
+                {provinces.map((province) => (
+                  <option key={province.id} value={province.full_name}>
+                    {province.full_name}
                   </option>
-                  {provinces.map((province) => {
-                    return (
-                      <option key={province.id} value={province.full_name}>
-                        {province.full_name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div className={styles["dictrict-info"]}>
-                <p className={styles["text"]}>Quận/Huyện</p>
-                <select
-                  id="district"
-                  className={styles["select"]}
-                  name="district"
-                  onChange={handleAddressChange}
-                  value={address.district}
-                  disabled={!address.city}
-                >
-                  <option disabled value="">
-                    Select Dictricts ...
-                  </option>
-                  {districts.map((district) => {
-                    return (
-                      <option key={district.id} value={district.full_name}>
-                        {district.full_name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
+                ))}
+              </select>
             </div>
-            <div className={styles["duong-info"]}>
-              <p className={styles["text"]}>Địa chỉ</p>
+            <div className={styles.field}>
+              <label className={styles.label}>District</label>
+              <select
+                id='district'
+                className={styles.select}
+                name='district'
+                onChange={handleAddressChange}
+                value={address.district}
+                disabled={!address.city}
+              >
+                <option disabled value=''>
+                  Select District...
+                </option>
+                {districts.map((district) => (
+                  <option key={district.id} value={district.full_name}>
+                    {district.full_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>Address</label>
               <input
-                className={styles["input-text"]}
-                type="text"
-                name="street"
-                placeholder="Ví dụ : 20A Nguyễn Huệ"
+                className={styles.input}
+                type='text'
+                name='street'
+                placeholder='e.g., 20A Nguyen Hue'
                 value={address.street}
                 onChange={handleAddressChange}
               />
             </div>
-            <div className={styles["payment"]}>
-              <div className={styles["payment-title"]}>Phương thức thanh toán</div>
-              <ul>
-                <li>
+            <div className={styles.field}>
+              <label className={styles.label}>Payment Method</label>
+              <div className={styles.radioGroup}>
+                <label className={styles.radioLabel}>
                   <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="COD"
-                    checked={paymentMethod === "COD"}
+                    type='radio'
+                    name='paymentMethod'
+                    value='COD'
+                    checked={paymentMethod === 'COD'}
                     onChange={handlePaymentMethodChange}
-                    className={styles["payment-input"]}
                   />
-                  <span> Trả tiền mặt khi nhận hàng</span>
-                </li>
-                <li>
+                  Cash on Delivery
+                </label>
+                <label className={styles.radioLabel}>
                   <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="OP"
-                    checked={paymentMethod === "OP"}
+                    type='radio'
+                    name='paymentMethod'
+                    value='OP'
+                    checked={paymentMethod === 'OP'}
                     onChange={handlePaymentMethodChange}
-                    className={styles["payment-input"]}
                   />
-                  <span> Thanh toán qua mã QR</span>
-                </li>
-              </ul>
+                  QR Code Payment
+                </label>
+              </div>
             </div>
           </div>
-          <div className={styles["order-info-right"]}>
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle}>Order Summary</h2>
             <OrderList />
-            <button type="submit" className={styles["order-button"]}>
-              Đặt hàng{" "}
+            <button type='submit' className={styles.orderButton}>
+              Place Order
             </button>
           </div>
         </div>
@@ -255,4 +223,5 @@ const Order = () => {
     <></>
   );
 };
+
 export default Order;

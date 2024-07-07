@@ -1,154 +1,115 @@
-.order-in4 {
-  margin-right: 6rem;
-  border-width: 0 2px 2px;
-  border-style: solid;
-  border-color: #e2e2e2;
-  .order {
-    width: 100%;
-    padding: 20px;
-    .order-content {
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 20px;
-      border-bottom: 1.6px solid #e2e2e2;
-      .san-pham {
-        margin-left: 20px;
-        font-size: 16px;
-        font-weight: 700;
-        font-family: "Muli", sans-serif;
-        color: #222222;
-      }
-      .tam-tinh {
-        margin-right: 5px;
-        font-size: 16px;
-        font-weight: 700;
-        font-family: "Muli", sans-serif;
-        color: #222222;
-      }
-    }
-    .title {
-      align-items: center;
-      display: flex;
-      padding: 23px;
-      font-size: 16px;
-      font-weight: 700;
-      font-family: "Muli", sans-serif;
-      color: #222222;
-    }
-    .order-item {
-      width: 100%; /* Định rộng của khu vực chứa danh sách */
-      min-height: 100px; /* Định chiều cao của khu vực chứa danh sách */
-      max-height: 300px; /* Định chiều cao của khu vực chứa danh sách */
-      overflow-y: auto;
-      .content {
-        display: grid;
-        grid-template-columns: 6fr 1fr; /* Tạo 2 lưới  */
-        grid-gap: 1px;
-        justify-content: center;
-        align-items: center;
-        padding-bottom: 20px;
-        position: relative;
-        .left-content {
-          padding-right: 50px;
-          padding-top: 19px;
+.orderContainer {
+  border: 2px solid #e2e2e2;
+  border-top-width: 0;
+}
 
-          .description {
-            display: flex;
-            align-items: center;
-            .image {
-              padding-right: 30px;
-              img {
-                height: 60px;
-                width: 60px;
-                margin-left: 20px;
-                border-radius: 8px;
-                border: 1px rgba(0, 0, 0, 0.1) solid;
-                display: block;
-              }
-            }
-            .name {
-              font-size: 16px;
-              font-weight: 400;
-              font-family: "Muli", sans-serif;
-              color: #222222;
-            }
-          }
-          .quantity {
-            background-color: #2a9dcc;
-            border-radius: 2em;
-            height: 23px;
-            width: 23px;
-            display: inline-block;
-            position: absolute;
-            top: 20%;
-            transform: translateY(-20%);
-            margin-left: 68px;
-            margin-top: -5px;
-            box-sizing: border-box;
-            .quantity-number {
-              font-size: 11px;
-              color: #fff;
-              display: flex;
-              text-align: center;
-              justify-content: center;
-              margin-top: 4.5px;
-            }
-          }
-        }
+.order {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
 
-        .right-content {
-          padding: 0px;
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
 
-          .description {
-            font-size: 16px;
-            font-weight: 700;
-            font-family: "Muli", sans-serif;
-            color: #222222;
-          }
-        }
-      }
-    }
-    .content-footer {
-      width: 100%;
-      .content-footer-estimated {
-        padding-left: 20px;
-        padding-top: 20px;
-        font-size: 18px;
-        font-weight: 700;
-        font-family: "Muli", sans-serif;
-        color: #222222;
+.orderContent {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e2e2;
+  font-weight: bold;
+}
 
-        .content-footer-estimated-title {
-          padding-right: 230px;
-        }
-      }
-      .content-footer-ship {
-        padding-left: 20px;
-        padding-top: 20px;
-        font-size: 18px;
-        font-weight: 700;
-        font-family: "Muli", sans-serif;
-        color: #222222;
-        .content-footer-ship-title {
-          padding-right: 305px;
-        }
-      }
-      .content-footer-total {
-        padding-top: 29px;
-        padding-left: 20px;
-        font-size: 18px;
-        font-weight: 700;
-        font-family: "Muli", sans-serif;
-        color: #222222;
-        .content-footer-total-title {
-          padding-right: 230px;
-        }
-      }
-    }
-    .divider {
-      margin-top: 20px;
-      width: 100%;
-      border: 1px solid #e2e2e2;
-    }
-  }
+.productHeader,
+.tempTotalHeader {
+  color: #555;
+}
+
+.orderItems {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.leftContent {
+  display: flex;
+  align-items: center;
+}
+
+.quantityBadge {
+  background-color: #2a9dcc;
+  border-radius: 50%;
+  height: 23px;
+  width: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+}
+
+.image img {
+  height: 60px;
+  width: 60px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-right: 1rem;
+}
+
+.name {
+  font-size: 1rem;
+  color: #333;
+}
+
+.rightContent {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.divider {
+  margin-top: 1rem;
+  border-top: 1px solid #e2e2e2;
+}
+
+.footer {
+  margin-top: 1rem;
+}
+
+.footerRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.footerTitle {
+  font-weight: bold;
+  color: #333;
+}
+
+.footerValue {
+  font-weight: bold;
+  color: #555;
 }
