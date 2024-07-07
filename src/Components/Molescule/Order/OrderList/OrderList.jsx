@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect } from "react";
-import MyAxios from "setup/configAxios";
-import styles from "./OrderList.module.scss";
+import { useContext, useState, useEffect } from 'react';
+import MyAxios from 'setup/configAxios';
+import styles from './OrderList.module.scss';
+
 const OrderList = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [products, setProducts] = useState([]);
@@ -10,13 +11,13 @@ const OrderList = () => {
 
   useEffect(() => {
     // Gọi API để lấy danh sách sản phẩm
-    MyAxios.get("http://localhost:5000/api/v1/products?type=product").then((response) => {
+    MyAxios.get('http://localhost:5000/api/v1/products?type=product').then((response) => {
       setProducts(response.data);
       setProductsReady(true); // Đánh dấu rằng dữ liệu sản phẩm đã sẵn sàng
     });
 
     // Lấy dữ liệu từ Local Storage
-    const cartData = JSON.parse(localStorage.getItem("shopCart"));
+    const cartData = JSON.parse(localStorage.getItem('shopCart'));
 
     const updatedCartItems = [];
     let totalQuantity = 0;
@@ -47,54 +48,55 @@ const OrderList = () => {
 
     setOrderItems(updatedCartItems);
   }, [productsReady]);
+
   let ship = 12000;
   let total = totalPrice + ship;
+
   return (
-    <div className={styles["order-in4"]}>
-      <div className={styles["order"]}>
-        <h2 className={styles["title"]}> Đơn hàng của bạn ({totalQuantity} sản phẩm)</h2>
-        <div className={styles["order-content"]}>
-          <div className={styles["san-pham"]}>Sản phẩm</div>
-          <div className={styles["tam-tinh"]}>Tạm tính</div>
+    <div className={styles.orderContainer}>
+      <div className={styles.order}>
+        <h2 className={styles.title}>Your Order ({totalQuantity} items)</h2>
+        <div className={styles.orderContent}>
+          <div className={styles.productHeader}>Product</div>
+          <div className={styles.tempTotalHeader}>Subtotal</div>
         </div>
-        <div className={styles["order-item"]}>
+        <div className={styles.orderItems}>
           {orderItems.map((item) => (
-            <div className={styles["content"]}>
-              <div className={styles["left-content"]}>
-                <div className={styles["quantity"]}>
-                  <div className={styles["quantity-number"]}>{item.quantity}</div>
-                </div>
-                <div className={styles["description"]}>
-                  <div className={styles["image"]}>
+            <div key={item.id} className={styles.item}>
+              <div className={styles.leftContent}>
+                <div className={styles.quantityBadge}>{item.quantity}</div>
+                <div className={styles.description}>
+                  <div className={styles.image}>
                     <img src={item.image} alt={item.name} />
                   </div>
-                  <div className={styles["name"]}>{item.name}</div>
+                  <div className={styles.name}>{item.name}</div>
                 </div>
               </div>
-              <div className={styles["right-content"]}>
-                <div className={styles["description"]}>{(item.price * item.quantity).toLocaleString()}đ</div>
+              <div className={styles.rightContent}>
+                <div className={styles.price}>{(item.price * item.quantity).toLocaleString()}đ</div>
               </div>
             </div>
           ))}
         </div>
-        <div className={styles["divider"]}></div>
-        <div className={styles["content-footer"]}>
-          <div className={styles["content-footer-estimated"]}>
-            <span className={styles["content-footer-estimated-title"]}>Tạm tính</span>
-            <span className={styles["content-footer-estimated-price"]}>{totalPrice.toLocaleString()}đ</span>
+        <div className={styles.divider}></div>
+        <div className={styles.footer}>
+          <div className={styles.footerRow}>
+            <span className={styles.footerTitle}>Subtotal</span>
+            <span className={styles.footerValue}>{totalPrice.toLocaleString()}đ</span>
           </div>
-          <div className={styles["content-footer-estimated"]}>
-            <span className={styles["content-footer-estimated-title"]}>Giao hàng</span>
-            <span className={styles["content-footer-estimated-price"]}>{ship.toLocaleString()}đ</span>
+          <div className={styles.footerRow}>
+            <span className={styles.footerTitle}>Shipping</span>
+            <span className={styles.footerValue}>{ship.toLocaleString()}đ</span>
           </div>
-          <div className={styles["divider"]}></div>
-          <div className={styles["content-footer-total"]}>
-            <span className={styles["content-footer-total-title"]}>Tổng tiền</span>
-            <span className={styles["content-footer-total-price"]}>{total.toLocaleString()}đ</span>
+          <div className={styles.divider}></div>
+          <div className={styles.footerRow}>
+            <span className={styles.footerTitle}>Total</span>
+            <span className={styles.footerValue}>{total.toLocaleString()}đ</span>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default OrderList;

@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { TextField } from "@mui/material";
-import { useParams } from "react-router-dom";
-import MyAxios from "../../../setup/configAxios";
-import "./Productdetail.scss";
-import { CartContext } from "context/CartContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useContext, useEffect, useState } from 'react';
+import { TextField, Button, CircularProgress, Tabs, Tab, Box, Typography } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import MyAxios from '../../../setup/configAxios';
+import './Productdetail.scss';
+import { CartContext } from 'context/CartContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -13,6 +13,7 @@ function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [tabValue, setTabValue] = useState(0);
 
   const { addToCart } = useContext(CartContext);
 
@@ -27,8 +28,11 @@ function ProductDetail() {
     for (let i = 0; i < quantity; i++) {
       addToCart(id);
     }
-    toast.success(`${product.name} đã thêm vào giỏ hàng`, {
-    });
+    toast.success(`${product.name} đã thêm vào giỏ hàng`);
+  };
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
   };
 
   useEffect(() => {
@@ -43,42 +47,79 @@ function ProductDetail() {
       });
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading)
+    return (
+      <div className='loading'>
+        <CircularProgress />
+      </div>
+    );
+  if (error) return <div className='error'>Error: {error.message}</div>;
 
   return product ? (
-    <div className="bg-[#f9f6f6]">
+    <div className='product-detail'>
       <ToastContainer />
-      <div className="product-detail-container">
-        <div className="product-information">
-          <h1 className="info-name mb-7">{product.name}</h1>
-          <p className="info-price">{product.price} đ</p>
-          <p className="info-availability">
-            <span className="font-bold text-black">Availability:</span>{" "}
-            <span className="text-[#77a464]">còn {product.quantity} sản phẩm</span>{" "}
-          </p>
-
-          <div className="flex gap-10">
-            <div>
-              <TextField type="number" value={quantity} onChange={handleQuantityChange} className="quantity-section" />
+      <div className='product-container'>
+        <img className='product-image' src={product.image} alt={product.name} />
+        <div className='product-info'>
+          <Tabs value={tabValue} onChange={handleTabChange} className='product-tabs'>
+            <Tab label='Thông tin sản phẩm' />
+            <Tab label='Mô tả sản phẩm' />
+          </Tabs>
+          <TabPanel value={tabValue} index={0}>
+            <Typography variant='h4' className='product-name'>
+              {product.name}
+            </Typography>
+            <Typography variant='h6' className='product-price'>
+              {product.price} đ
+            </Typography>
+            <Typography variant='body1' className='product-availability'>
+              Availability: <span className='availability-count'>{product.quantity} sản phẩm</span>
+            </Typography>
+            <div className='quantity-container'>
+              <TextField
+                type='number'
+                value={quantity}
+                onChange={handleQuantityChange}
+                className='quantity-input'
+                InputProps={{ inputProps: { min: 1, max: product.quantity } }}
+              />
+              <Button
+                onClick={handleAddToCart}
+                className='add-to-cart-btn'
+                variant='contained'
+                color='primary'
+              >
+                Add to Cart
+              </Button>
             </div>
-
-            <button onClick={handleAddToCart} className="add-to-cart-btn">
-              Add to Cart
-            </button>
-          </div>
-        </div>
-        <img className="product-image" src={product.image} alt={product.name} />
-      </div>
-      <div className="w-100% flex">
-        <div className="product-des">
-          <p className="text-[#273172] font-bold text-xl mb-5">MÔ TẢ SẢN PHẨM</p>
-          {product.des}
+          </TabPanel>
+          <TabPanel value={tabValue} index={1}>
+            <Typography variant='h6' className='description-title'>
+              MÔ TẢ SẢN PHẨM
+            </Typography>
+            <Typography variant='body1'>{product.des}</Typography>
+          </TabPanel>
         </div>
       </div>
     </div>
   ) : (
     <div>Product not found</div>
+  );
+}
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role='tabpanel'
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box p={3}>{children}</Box>}
+    </div>
   );
 }
 
