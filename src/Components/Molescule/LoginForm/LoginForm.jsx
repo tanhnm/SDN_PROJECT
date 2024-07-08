@@ -1,7 +1,7 @@
-import PetDog from '../../../assets/images/PetDog.png';
+import PetDog from "../../../assets/images/PetDog.png";
 
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MyAxios from '../../../setup/configAxios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,6 +26,7 @@ const LoginForm = () => {
   const [formError, setFormError] = useState({});
   const [rememberMe, setRememberMe] = useState(false);
   const [loginFail, setLoginFail] = useState(false);
+  const navigate = useNavigate();
 
   // Xử lý remember me
   useEffect(() => {
@@ -70,11 +71,13 @@ const LoginForm = () => {
   // Post API
   const loginUser = async (email, password) => {
     try {
-      const response = await MyAxios.post('http://localhost:5000/api/v1/auth/login', {
-        email,
-        password,
-      });
-      console.log(response);
+      const response = await MyAxios.post(
+        'http://localhost:5000/api/v1/auth/login',
+        {
+          email,
+          password,
+        }
+      );
       const { access_token, refresh_token } = response.data;
 
       if (response.status === 'success') {
@@ -97,7 +100,9 @@ const LoginForm = () => {
         }
       } else {
         setLoginFail(true);
-        toast.error(`Đăng nhập thất bại: ${response.message || 'Unknown error'}`);
+        toast.error(
+          `Đăng nhập thất bại: ${response.message || 'Unknown error'}`
+        );
       }
     } catch (error) {
       setLoginFail(true); // Cập nhật trạng thái đăng nhập thất bại
@@ -138,18 +143,21 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className='w-full h-screen flex items-start'>
-        <div className='relative w-1/2 h-full flex flex-col'>
-          <img src={PetDog} className='w-full h-full' alt='Pet Dog' />
+      <div className='w-full h-screen flex justify-center items-center relative'>
+        <div className='w-full h-full flex flex-col absolute top-0 left-0 z-[1]'>
+          <img
+            src={
+              'https://t3.ftcdn.net/jpg/05/31/09/74/360_F_531097423_y1scBnLigyQpMNjLmleTWRh96WmULQo8.jpg'
+            }
+            className='w-full h-full'
+            alt='Pet Dog'
+          />
         </div>
-        <div className='w-1/2 h-full bg-[#fff] flex flex-col p-20 justify-between items-center'>
-          <h1 className='w-full max-w-[550px] mx-auto text-xl text-[#060606] font-semibold mr-auto'>
-            Pet Home dịch vụ tốt nhất cho thú cưng
-          </h1>
+        <div className='w-1/2 h-fit bg-white/70 flex flex-col p-20 items-center z-[10000000000000] relative '>
           <div className='w-full flex flex-col max-w-[550px]'>
             <div className='w-full flex flex-col mb-2'>
-              <h3 className='text-4xl font-semibold mb-2'>Login</h3>
-              <p className='text-base mb-2'>Welcome Back! Please fill your details.</p>
+              <h3 className='text-4xl font-semibold mb-2'>Sign in</h3>
+              <p className='text-base mb-2'>Fill your account.</p>
             </div>
             <form className='w-full flex flex-col' onSubmit={handleLogin}>
               <input
@@ -162,7 +170,9 @@ const LoginForm = () => {
                 required
                 autoComplete='email'
               />
-              {formError.email && <div className='text-red-500 text-sm'>{formError.email}</div>}
+              {formError.email && (
+                <div className='text-red-500 text-sm'>{formError.email}</div>
+              )}
               <input
                 type='password'
                 name='password'
@@ -187,7 +197,7 @@ const LoginForm = () => {
                   <p className='text-sm'>Remember me</p>
                 </div>
                 <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2'>
-                  Forgot Password?
+                  Forget password?
                 </p>
               </div>
               <div className='w-full flex flex-col my-4'>
@@ -195,27 +205,26 @@ const LoginForm = () => {
                   type='submit'
                   className='w-full text-white my-2 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
                 >
-                  Log in
-                </button>
-                <button className='w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center cursor-pointer'>
-                  Register
+                  Sign in
                 </button>
               </div>
             </form>
-            <div className='w-full flex items-center justify-center relative py-2'>
-              <div className='w-full h-[1px] bg-black'></div>
-              <p className='text-lg absolute text-black/80 bg-[#f5f5f5] px-2'>or</p>
-            </div>
           </div>
-          <div className='w-full flex items-center justify-center'>
+          <div className='w-full flex items-center justify-center flex-col mt-5'>
             <p className='text-sm font-normal text-black'>
-              Don't have a account ?{' '}
+              Do not have account ?{' '}
               <Link to='/register'>
                 <span className='font-semibold underline underline-offset-2 cursor-pointer'>
-                  Sign up for free ?
+                  Sign up now ?
                 </span>
               </Link>
             </p>
+            <Link
+              className='text-blue-500 underline underline-offset-2 text-lg mt-2'
+              to={'/'}
+            >
+              Back to home page
+            </Link>
           </div>
         </div>
       </div>
