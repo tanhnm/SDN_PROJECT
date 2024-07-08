@@ -1,3 +1,13 @@
+.cat-hero {
+  padding-top: 100px;
+  margin-left: 500px;
+  min-height: 300px;
+  max-width: 800px;
+  background-size: cover;
+  background-image: url('https://petservicehcm.com/wp-content/uploads/2021/04/pet-cover-1536x584.jpeg.webp');
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .sort-product {
   width: 20%;
   margin-left: auto;
@@ -9,7 +19,6 @@
   display: flex;
   padding: 20px;
 
-
   .filter-section {
     width: 20%;
     padding: 20px;
@@ -20,7 +29,7 @@
       margin-bottom: 20px;
     }
 
-    input[type="range"] {
+    input[type='range'] {
       width: 100%;
       margin-bottom: 10px;
     }
@@ -51,5 +60,4 @@
     width: 80%;
     gap: 20px;
   }
-
 }
