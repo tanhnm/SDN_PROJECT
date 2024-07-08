@@ -1,26 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "Components/ui/button";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import { Button } from 'Components/ui/button';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   DetailService,
   getAllPet,
   CreateServiceBooking,
-} from "lib/api/services-api";
-import { Skeleton } from "Components/ui/skeleton";
+} from 'lib/api/services-api';
+import { Skeleton } from 'Components/ui/skeleton';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "Components/ui/select";
+} from 'Components/ui/select';
 export default function ServicesDetail() {
   const [card, setCard] = useState(null);
   const [pets, setPets] = useState([]);
   const [selectedPet, setSelectedPet] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      currencyDisplay: 'code',
+    }).format(price);
+  };
+
   const { id } = useParams();
   useEffect(() => {
     const fetchDetailService = async () => {
@@ -28,24 +36,24 @@ export default function ServicesDetail() {
         const data = await DetailService(id);
         setCard(data);
       } catch (error) {
-        console.error("Error fetching service detail:", error);
+        console.error('Error fetching service detail:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
     const getAllPets = async () => {
-      const userId = localStorage.getItem("userId");
+      const userId = localStorage.getItem('userId');
       try {
         const data = await getAllPet(userId);
         setPets(data);
       } catch (error) {
-        console.error("Error fetching pets:", error);
+        console.error('Error fetching pets:', error);
       } finally {
         setIsLoading(false);
       }
     };
-    const userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem('userId');
     if (userId) {
       setIsLoggedIn(true);
       getAllPets();
@@ -66,49 +74,54 @@ export default function ServicesDetail() {
     };
 
     const result = await CreateServiceBooking(bookingData);
-    console.log("da", result);
-    console.log("kq", result.response.status);
-    if (result.response.status === "error") {
+    console.log('da', result);
+    console.log('kq', result.response.status);
+    if (result.response.status === 'error') {
       toast.error(`Error: ${result.response.message}`, {
-        position: "top-left",
+        position: 'top-left',
       });
     } else {
       toast.success(`Success: ${result.response.message}`, {
-        position: "top-right",
+        position: 'top-right',
       });
     }
   };
 
   if (isLoading) {
     return (
-      <div className="flex justify-center  flex-row-reverse gap-10 ">
-        <Skeleton className="h-[20vw] w-[20vw] rounded-xl mb-5" />
-        <div className="space-y-6 ">
-          <Skeleton className="h-10 w-[20vw] mb-10" />
-          <Skeleton className="h-7 w-[10vw] " />
-          <Skeleton className="h-5 w-[15vw] " />
-          <Skeleton className="h-4 w-[8vw] " />
+      <div className='flex justify-center  flex-row-reverse gap-10 '>
+        <Skeleton className='h-[20vw] w-[20vw] rounded-xl mb-5' />
+        <div className='space-y-6 '>
+          <Skeleton className='h-10 w-[20vw] mb-10' />
+          <Skeleton className='h-7 w-[10vw] ' />
+          <Skeleton className='h-5 w-[15vw] ' />
+          <Skeleton className='h-4 w-[8vw] ' />
         </div>
       </div>
     );
   }
   return (
-    <div className="mx-[20%]">
-      <div className="flex justify-center mb-5">
-        <div className="p-5 ">
-          <h1 className="text-3xl font-bold text-blue-900 mb-7">
+    <div className='mx-[20%]'>
+      <div className='flex justify-center mb-5'>
+        <img
+          src={card && card.image}
+          alt={card && card.name}
+          className='w-[20vw] rounded-md shadow-inner mr-5'
+        />
+        <div className='p-5 '>
+          <h1 className='text-3xl font-bold text-green-800 mb-7'>
             {card && card.name}
           </h1>
-          <p className="font-bold mb-3">{card && card.price} vnđ</p>
-          <p className="mb-3">
+          <p className='font-bold mb-3'>{card && formatPrice(card.price)}</p>
+          <p className='mb-3'>
             <b>Availability: </b>
             {card && card.status}
           </p>
-          {isLoggedIn && pets.length > 0 ? (
-            <div className="mb-7 self-end">
+          {isLoggedIn && pets?.length > 0 ? (
+            <div className='mb-7 self-end'>
               <Select onValueChange={setSelectedPet}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Chọn thú cưng" />
+                <SelectTrigger className='w-[180px]'>
+                  <SelectValue placeholder='Chọn thú cưng' />
                 </SelectTrigger>
                 <SelectContent>
                   {pets.map((pet) => (
@@ -121,29 +134,25 @@ export default function ServicesDetail() {
 
               <Button
                 onClick={handleBooking}
-                className="text-white bg-blue-900 rounded-2xl px-10 mt-3"
+                className='text-white bg-green-700 rounded-2xl px-10 mt-3 w-full'
               >
                 ĐẶT DỊCH VỤ
               </Button>
             </div>
           ) : (
             <div>
-              <Button className="text-white bg-gray-900 rounded-2xl px-10 mb-3">
-                ĐẶT DỊCH VỤ
-              </Button>
-              <p className="text-red-500"> Vui lòng đăng nhập để đặt dịch vụ</p>
+              <p className='text-red-500'>
+                {(isLoggedIn === false &&
+                  'Vui lòng đăng nhập để sử dụng dịch vụ') ||
+                  (pets?.length === 0 && 'Bạn không có thú cưng nào')}
+              </p>
             </div>
           )}
         </div>
-        <img
-          src={card && card.image}
-          alt={card && card.name}
-          className="w-[20vw] rounded-md shadow-inner mx-5"
-        />
       </div>
-      <div className="min-h-10 p-5 ring-1  ring-gray-500 rounded-sm mb-5">
-        <p className="font-bold text-blue-900 text-2xl mb-5">Mô tả Combo</p>
-        {card && card.des}
+      <div className='min-h-10 p-5 ring-1  ring-gray-500 rounded-sm mb-5'>
+        <p className='font-bold text-green-900 text-2xl mb-5'>Mô tả</p>
+        <p className='whitespace-pre-line'>{card && card.des}</p>
       </div>
     </div>
   );

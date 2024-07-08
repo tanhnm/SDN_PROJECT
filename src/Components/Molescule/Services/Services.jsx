@@ -69,18 +69,18 @@ export default function Services() {
         <div className="mb-7 self-end">
           <Select onValueChange={setSortOder}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="sắp xếp" />
+              <SelectValue placeholder="Sorting" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="system">mặc định</SelectItem>
-              <SelectItem value="asc">tăng dần</SelectItem>
-              <SelectItem value="des">giảm dần</SelectItem>
+              <SelectItem value="system">Default</SelectItem>
+              <SelectItem value="asc">Ascending</SelectItem>
+              <SelectItem value="des">Descending</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         {isLoading ? (
-          <div className="flex justify-center items-center flex-wrap space-x-7">
+          <div className="w-full flex justify-between items-center flex-wrap space-x-7">
             {comboCard?.map((key, index) => (
               <ComboCard key={index} combo={key} />
             ))}

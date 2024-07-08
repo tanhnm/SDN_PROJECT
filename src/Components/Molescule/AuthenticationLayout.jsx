@@ -1,16 +1,18 @@
-import React from "react";
-import Background from "assets/images/PetDog.png";
+import React from 'react';
+import Background from 'assets/images/PetDog.png';
 export default function AuthenticationLayout({ children }) {
   return (
-    <div className="font-geist w-screen h-screen flex">
-      <div className="flex-1 hidden md:block">
+    <div className='w-full h-screen flex justify-center items-center relative'>
+      <div className='w-full h-full flex flex-col absolute top-0 left-0 z-[1]'>
         <img
-          src={Background}
-          alt="auth-background"
-          className="w-full h-full  "
+          src={
+            'https://t3.ftcdn.net/jpg/05/31/09/74/360_F_531097423_y1scBnLigyQpMNjLmleTWRh96WmULQo8.jpg'
+          }
+          className='w-full h-full'
+          alt='Pet Dog'
         />
       </div>
-      <div className="flex-1 flex items-center justify-center  ">
+      <div className='w-1/2 !h-fit bg-white/70 flex flex-col p-20 items-center z-[10000000000000] relative '>
         {children}
       </div>
     </div>
