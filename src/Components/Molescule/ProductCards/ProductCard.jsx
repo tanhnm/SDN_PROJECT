@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Card, CardContent, CardMedia } from '@mui/material';
-import './ProductCards.scss';
 
 function ProductCard({ status, img, content, forType, className, onClick, price }) {
   return (
