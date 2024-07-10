@@ -66,7 +66,7 @@ function ProductDetail() {
             <Tab label='Mô tả sản phẩm' />
           </Tabs>
           <TabPanel value={tabValue} index={0}>
-            <Typography variant='h4' className='product-name'>
+            <Typography variant='h4' className='!text-black product-name'>
               {product.name}
             </Typography>
             <Typography variant='h6' className='product-price'>
@@ -85,9 +85,8 @@ function ProductDetail() {
               />
               <Button
                 onClick={handleAddToCart}
-                className='add-to-cart-btn'
+                className='add-to-cart-btn !bg-green-800'
                 variant='contained'
-                color='primary'
               >
                 Add to Cart
               </Button>
