@@ -1,250 +1,89 @@
-import styles from "./HomePage.module.scss";
-import petDog from "../../../assets/images/petDog.webp";
-import chomeo from "../../../assets/images/chomeo.jpg";
-import chamsoc from "../../../assets/images/dich-vu-cham-soc-thu-cung-tai-nha.jpg.webp";
-import cattia from "../../../assets/images/cattia.jpg";
-import p1 from "../../../assets/images/products1.webp";
-import p2 from "../../../assets/images/products2.webp";
-import p3 from "../../../assets/images/products3.png";
-import ServiceCard from "Components/Molescule/ServiceCards/ServiceCards";
-import ProductCard from "Components/Molescule/ProductCards/ProductCard";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import CheckIcon from "@mui/icons-material/Check";
-const HomePage = () => {
-  return (
-    <div className={styles["container"]}>
-      <div className={styles["first"]}>
-        <div className={styles["interview"]}>
-          <div className={styles["introduct"]}>
-            <div className={styles["introduct-text"]}>
-              <div className={styles["introduct-header"]}>PET HOME</div>
-              <div className={styles["introduct-body"]}>DỊCH VỤ THÚ CƯNG </div>
-              <div className={styles["introduct-footer"]}>UY TÍN HÀNG ĐẦU</div>
-            </div>
-            <div className={styles["introduct-btn"]}>
-              <div className={styles["introduct-btn-1"]}>
-                <button className={styles["introduct-btn-more"]}>Xem thêm</button>
-              </div>
-              <div className={styles["introduct-btn-2"]}>
-                <button className={styles["introduct-btn-booking"]}>Online Booking</button>
-              </div>
-            </div>
-          </div>
-          <div className={styles["image"]}>
-            <img src={petDog} alt="anh cho" />
-          </div>
-        </div>
-        <div className={styles["services"]}>
-          <div className={styles["introduct"]}>
-            <div className={styles["introduct-text"]}>
-              <div className={styles["introduct-header"]}>DỊCH VỤ THÚ CƯNG</div>
-              <div className={styles["introduct-body"]}>DỊCH VỤ</div>
-              <div className={styles["introduct-footer"]}>HÀNG ĐẦU</div>
-            </div>
-          </div>
-          <div className={styles["card"]}>
-            <ServiceCard
-              title="CHĂM SÓC"
-              detail={
-                "Chúng tối biết cách làm thế nào để thú cưng của bạn trở nên đẳng cấp và cá tính hơn. Với dịch vụ cắt tỉa lông thú cưng chúng tôi sẽ giúp các bé trở thành phiên bản hoàn hảo nhất..."
-              }
-              className={styles["services-care"]}
-            />
+import imgContext1 from "assets/images/hotel_wallpaper.webp";
+import imgContext2 from "assets/images/hotel2-img-7.webp";
+import imgContext3 from "assets/images/hotel3_img_4.webp";
+import imgContext31 from "assets/images/hotel3.1_img_3.webp";
+import imgContext32 from "assets/images/hote3.2l_img_9.webp";
+import imgContext33 from "assets/images/hotel3.3_img_10.webp";
+import imgContext34 from "assets/images/hotel3.4_img_11.webp";
+import imgContext36 from "assets/images/hotel3.5_img_12.webp";
+import imgContextVip from "assets/images/hotelvip_15.webp";
 
-            <ServiceCard
-              title="CỬA HÀNG"
-              detail={
-                "Cùng với hơn 3.000 khách hàng đã luôn tin tưởng, đồng hành, chúng tôi luôn đặt ra những mục tiêu và thử thách mới. PET SERVICE cung cấp các sản phẩm, phụ kiện rất đa dạng..."
-              }
-              className={styles["services-shop"]}
-            />
-            <ServiceCard
-              title="KHÁCH SẠN"
-              detail={
-                "Mọi hành động ở PET SERVICE đều bắt đầu từ sứ mệnh Trao Gửi Yêu Thương. Mọi thú cưng mới khi đến với chúng tôi đều được quan tâm đặc biệt bởi đội ngũ Nhân viên nhiều kinh nghiệm..."
-              }
-              className={styles["services-hotel"]}
-            />
-          </div>
-        </div>
-        <div className={styles["products"]}>
-          <div className={styles["introduct"]}>
-            <div className={styles["introduct-text"]}>
-              <div className={styles["introduct-header"]}>HÀNG NÓNG</div>
-              <div className={styles["introduct-body"]}>SẢN PHẨM</div>
-              <div className={styles["introduct-footer"]}>NỔI BẬT</div>
-              <div className={styles["introduct-btn"]}>
-                <button className={styles["introduct-btn-view"]}>Xem cửa hàng</button>
-              </div>
-            </div>
-          </div>
-          <div className={styles["products-card"]}>
-            <ProductCard
-              img={p1}
-              forType={"Cho Mèo"}
-              content={"Bánh quy thưởng Funny U cho chó mèo gói 100g"}
-              price={"50.000 ₫"}
-            />
-            <ProductCard img={p2} forType={"Cho Chó & Mèo"} content={"Balo trong ngang"} price={"390.000 ₫"} />
-            <ProductCard img={p3} forType={"Cho Chó "} content={"Chai Xịt Vệ Sinh"} price={"390.000 ₫"} />
-          </div>
-        </div>
+const HomePage = () => {
+  const activities = [
+    {
+      time: "07:00 - 08:30",
+      description: "Nhân viên chuẩn bị bữa sáng, kiểm tra lau dọn chuồng",
+    },
+    { time: "08:30 - 09:00", description: "Bắt đầu ăn sáng" },
+    { time: "09:00 - 12:00", description: "Tự do vui chơi trong vườn" },
+    { time: "12:00 - 12:30", description: "Các bé trở về phòng và ăn trưa" },
+    { time: "12:30 - 14:00", description: "Các bé nghỉ trưa trong phòng" },
+    { time: "14:00 - 17:00", description: "Tự do vui chơi trong vườn" },
+    {
+      time: "17:00 - 19:00",
+      description: "Các bé trở về phòng, bắt đầu ăn tối",
+    },
+    { time: "Sau 19:00", description: "Các bé nghỉ ngơi trong phòng" },
+  ];
+  return (
+    <div className="px-20 py-10 flex items-center justify-center flex-col font-mainText3">
+      <img
+        src={imgContext1}
+        alt="img context 1"
+        className="w-[80%] rounded-md"
+      />
+      <div className="p-10 flex justify-center items-center flex-col text-center max-w-[50%]">
+        <h1 className="text-4xl font-bold">Lo lắng khi gửi bé yêu</h1>
+        <p>
+          Chúng tôi hiểu rõ những lo lắng của bạn, vì vậy PETSHOP tập trung vào
+          việc cung cấp chế độ ăn uống đáng tin cậy và sự quan sát thông qua hệ
+          thống camera tiên tiến. Hãy yên tâm, chủ có thể xem thú cưng của mình
+          thoải mái chơi đùa qua các camera, và PETSHOP tạo điều kiện thuận lợi
+          để các bé được thả chơi tự do một cách an toàn và vui vẻ từ sáng đến
+          tối.
+        </p>
       </div>
-      <div className={styles["second"]}>
-        <div className={styles["service-spa"]}>
-          <div className={styles["service-spa-interview"]}>
-            <div className={styles["service-spa-text"]}>
-              <h1 className={styles["service-spa-title"]}>DỊCH VỤ TẬN TÌNH - AN TÂM CHẤT LƯỢNG</h1>
-              <h3 className={styles["service-spa-body"]}>
-                Liên hệ ngay để được tư vấn và báo giá các dịch vụ phù hợp cho bé yêu của bạn!
-              </h3>
-            </div>
-            <div className={styles["introduct-btn"]}>
-              <button className={styles["introduct-btn-advise"]}>TƯ VẤN MIỄN PHÍ</button>
-            </div>
+      <div className="flex justify-center items-center flex-col">
+        <p className="text-5xl font-bold flex gap-1 mb-2">
+          Lịch trình hàng ngày của <p className="text-green-500 ">Các bé</p>
+        </p>
+        <p>
+          Tất cả các phòng đều có camera giám sát thông minh, đàm thoại 2 chiều
+        </p>
+        <div className=" flex gap-1 items-center justify-center mb-2">
+          <img src={imgContext2} alt="" className="w-[40%] rounded-md" />
+
+          <div className="max-w-md mx-auto p-5 mx-0 ">
+            {activities.map((activity, index) => (
+              <div key={index} className="mb-1 my-1">
+                <div className="text-green-500 font-bold">{activity.time}</div>
+                <div className="break-words">{activity.description}</div>
+              </div>
+            ))}
           </div>
         </div>
-        <div className={styles["service-spa-in4"]}>
-          <div className={styles["service-spa-img"]}>
-            <div className={styles["service-spa-text"]}>
-              <div className={styles["text-header"]}>THÔNG TIN</div>
-              <div className={styles["text-body"]}>SPA CHO THÚ CƯNG</div>
-              <div className={styles["text-footer"]}>CHUẨN 5 SAO</div>
-              <div className={styles["service-spa-btn"]}>
-                <button className={styles["spa-btn-more"]}>Xem thêm</button>
-              </div>
-            </div>
-            <img className={styles["spa-img"]} src={chomeo} alt="anh cho meo" />
-            <div className={styles["service-spa-title"]}>
-              <div className={styles["service-spa-title-header"]}>
-                <div className={styles["service"]}>Dịch vụ chuyên nghiệp</div>
-                <div className={styles["fast"]}>Nhanh chóng </div>
-              </div>
-              <div className={styles["service-spa-title-body"]}>
-                <div className={styles["header"]}>KHÁM SỨC KHỎE MIỄN PHÍ</div>
-                <div className={styles["body"]}>
-                  Mọi hành động ở PET SERVICE đều bắt đầu từ sứ mệnh Trao gửi yêu thương. Do vậy, Spa đạt chuẩn với quy
-                  trình khắt khe sẽ mang lại sự thom tho và sạch sẽ cho thú cưng của bạn.
-                </div>
-              </div>
-            </div>
+        <div className="flex gap-1 items-center justify-center mb-2">
+          <div className=" flex gap-1 items-center justify-center mb-2 flex-col">
+            <h1 className="font-bold text-green-500 text-4xl">Phòng cực VIP</h1>
+            <p>
+              Phòng cực rộng, cực đẹp, view sân vườn, wifi miễn phí kèm các bữa
+              ăn được đưa đến tận phòng
+            </p>
           </div>
+          <img src={imgContextVip} alt="vip" className="w-[50%]" />
         </div>
-        <div className={styles["service-care"]}>
-          <div className={styles["introduct"]}>
-            <div className={styles["introduct-text"]}>
-              <div className={styles["introduct-header"]}>Thông Tin & Bảng Giá</div>
-              <div className={styles["introduct-body"]}>Dịch vụ tắm vệ sinh</div>
-            </div>
-            <div className={styles["service-cut-in4"]}>
-              <div className={styles["service-cut-list"]}>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  CẠO BÀN CHÂN / BỤNG / HẬU MÔN
-                </div>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  CẮT & MÀI NHẴN MÓNG CHÂN
-                </div>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  VỆ SINH TAI & KHỬ MÙI TUYẾN HÔI
-                </div>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  TẮM SẠCH BẰNG 2 LOẠI SỮA TẮM
-                </div>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  SẤY & CHẢI BUNG XÙ LÔNG
-                </div>
-              </div>
-              <div className={styles["service-cut-price"]}>
-                <div className={styles["title"]}>Chỉ từ</div>
-                <div className={styles["service-combo"]}>300.000đ</div>
-              </div>
-            </div>
-            <div className={styles["introduct-btn"]}>
-              <div className={styles["introduct-btn-1"]}>
-                <button className={styles["introduct-btn-more"]}>Xem thêm</button>
-              </div>
-              <div className={styles["introduct-btn-2"]}>
-                <button className={styles["introduct-btn-booking"]}>Đặt lịch ngay</button>
-              </div>
-            </div>
-          </div>
-          <div className={styles["image-care"]}>
-            <img src={chamsoc} alt="cham soc" />
-          </div>
+        <h1 className="text-4xl font-bold flex gap-1 mb-2">Hình ảnh</h1>
+        <div className="grid grid-cols-3 gap-3 w-[80%]">
+          <img src={imgContext3} alt=" ct 3" className="w-[100%] rounded-md" />
+          <img src={imgContext31} alt=" ct 3" className="w-[100%] rounded-md" />
+          <img src={imgContext32} alt=" ct 3" className="w-[100%] rounded-md" />
+          <img src={imgContext33} alt=" ct 3" className="w-[100%] rounded-md" />
+          <img src={imgContext34} alt=" ct 3" className="w-[100%] rounded-md" />
+          <img src={imgContext36} alt=" ct 3" className="w-[100%] rounded-md" />
         </div>
-        <div className={styles["service-hotline"]}>
-          <h3 className={styles["service-link"]}>PETHOME.COM</h3>
-          <h1 className={styles["service-hotline-title"]}>
-            Chúng tôi luôn <span>sẵn sàng </span> phục vụ bạn
-          </h1>
-          <button className={styles["service-hotline-btn"]}>
-            <LocalPhoneIcon />
-            <span className={styles["hotline-text"]}> DỊCH VỤ THÚ CƯNG TẠI NHÀ - 24/7 </span>
-          </button>
-        </div>
-        <div className={styles["service-cut"]}>
-          <div className={styles["image-care"]}>
-            <img src={cattia} alt="cat" />
-          </div>
-          <div className={styles["introduct"]}>
-            <div className={styles["introduct-text"]}>
-              <div className={styles["introduct-header"]}>Thông Tin & Bảng Giá</div>
-              <div className={styles["introduct-body"]}>Dịch vụ tắt tỉa lông</div>
-            </div>
-            <div className={styles["service-cut-in4"]}>
-              <div className={styles["service-cut-list"]}>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  Cắt Gọn Lông
-                </div>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  Tỉa Lông Tạo Kiểu
-                </div>
-                <div className={styles["list"]}>
-                  <span className={styles["check-icon"]}>
-                    <CheckIcon />
-                  </span>
-                  Cạo Lông
-                </div>
-              </div>
-              <div className={styles["service-cut-price"]}>
-                <div className={styles["title"]}>Chỉ từ</div>
-                <div className={styles["service-combo"]}>400.000đ</div>
-              </div>
-            </div>
-            <div className={styles["introduct-btn"]}>
-              <div className={styles["introduct-btn-1"]}>
-                <button className={styles["introduct-btn-more"]}>Xem thêm</button>
-              </div>
-              <div className={styles["introduct-btn-2"]}>
-                <button className={styles["introduct-btn-booking"]}>Đặt lịch ngay</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles["service-combo"]}></div>
       </div>
     </div>
   );
 };
+
 export default HomePage;
