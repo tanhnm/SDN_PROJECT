@@ -24,12 +24,15 @@ const VerifyOtp = () => {
     const result = await verifyApi({ ...registerData, otp });
     setLoading(false);
     console.log("API Response:", result);
-    if (result.error) {
-      toast.error(`Error: ${result.error}`, { position: "top-left" });
+
+    if (result.data.error) {
+      toast.error(`Error: ${result.data.error}`, { position: "top-left" });
     } else if (result.data?.status === "error") {
       toast.error(`Error: ${result.data.message}`, { position: "top-left" });
     } else {
-      toast.success("Verification successful", { position: "top-right" });
+      toast.success(`Verification: ${result.data.message}`, {
+        position: "top-right",
+      });
       setTimeout(() => {
         navigate("/login");
       }, 1000);

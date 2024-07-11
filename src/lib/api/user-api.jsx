@@ -4,7 +4,7 @@ export const verifyApi = async (params) => {
   try {
     console.log("Sending request with params:", params); // Debug log
     const data = await axiosClient.post(`api/v1/auth/verifyOtp`, params);
-    return { error: null, data };
+    return { error: null, data: data.data };
   } catch (error) {
     console.error("API Error:", error);
     console.log("API ne:", params);
