@@ -42,7 +42,7 @@ const UserProfile = () => {
           </div>
           <div className="flex flex-col space-y-4">
             <div>
-              <label htmlFor="name" className="block mb-2 text-sm font-medium text-[#166534]">
+              <label htmlFor="name" className="block mb-2 text-sm font-medium text-black">
                 Tên
               </label>
               <input
@@ -54,7 +54,7 @@ const UserProfile = () => {
               />
             </div>
             <div>
-              <label htmlFor="dob" className="block mb-2 text-sm font-medium text-[#166534]">
+              <label htmlFor="dob" className="block mb-2 text-sm font-medium text-black">
                 Ngày sinh
               </label>
               <input
@@ -66,7 +66,7 @@ const UserProfile = () => {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-[#166534]">
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-black">
                 Email
               </label>
               <input
@@ -78,7 +78,7 @@ const UserProfile = () => {
               />
             </div>
             <div>
-              <label htmlFor="phone" className="block mb-2 text-sm font-medium text-[#166534]">
+              <label htmlFor="phone" className="block mb-2 text-sm font-medium text-black">
                 Điện thoại
               </label>
               <input
@@ -90,7 +90,7 @@ const UserProfile = () => {
               />
             </div>
             <div>
-              <label htmlFor="address" className="block mb-2 text-sm font-medium text-[#166534]">
+              <label htmlFor="address" className="block mb-2 text-sm font-medium text-black">
                 Địa chỉ
               </label>
               <input
