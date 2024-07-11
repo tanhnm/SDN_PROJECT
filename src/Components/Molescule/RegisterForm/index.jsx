@@ -9,17 +9,17 @@ export default function Register() {
           <div className="flex flex-col space-y-2 text-center items-center gap-2">
             <h1 className="text-2xl font-semibold tracking-tight">PET HOME</h1>
             <p className="text-sm text-muted-foreground">
-              Register to your account
+              Đăng ký tài khoản
             </p>
           </div>
           <UserAuthForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
-            Have a account?{" "}
+            Đã có tài khoản?{" "}
             <Link
               to="/login"
               className="underline underline-offset-4 text-blue-500 hover:text-blue-600 font-normal"
             >
-              LOGIN
+              Đăng nhập
             </Link>
             .
           </p>

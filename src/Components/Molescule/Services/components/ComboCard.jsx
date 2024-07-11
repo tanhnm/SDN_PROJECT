@@ -28,7 +28,7 @@ export default function ComboCard({ combo }) {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <p>
-              Price : <b>{formatPrice(combo.price)}</b>
+              Giá : <b>{formatPrice(combo.price)}</b>
             </p>
           </div>
         </CardContent>
@@ -36,14 +36,14 @@ export default function ComboCard({ combo }) {
           <form>
             <div className="grid w-full items-center gap-4">
               <p>
-                Status: <b>{combo.status}</b>
+                Trạng thái: <b>{combo.status}</b>
               </p>
             </div>
           </form>
         </CardContent>
         <CardFooter className="w-full">
           <Link to={`/services/${combo._id}`} className='w-full'>
-            <Button className="bg-green-800 w-full">Detail</Button>
+            <Button className="bg-green-800 w-full">Chi tiết</Button>
           </Link>
         </CardFooter>
       </Card>

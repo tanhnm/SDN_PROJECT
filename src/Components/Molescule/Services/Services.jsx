@@ -69,12 +69,12 @@ export default function Services() {
         <div className="mb-7 self-end">
           <Select onValueChange={setSortOder}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Sorting" />
+              <SelectValue placeholder="Sắp xếp" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="system">Default</SelectItem>
-              <SelectItem value="asc">Ascending</SelectItem>
-              <SelectItem value="des">Descending</SelectItem>
+              <SelectItem value="system">Mặc định</SelectItem>
+              <SelectItem value="asc">Tăng dần</SelectItem>
+              <SelectItem value="des">Giảm dần</SelectItem>
             </SelectContent>
           </Select>
         </div>

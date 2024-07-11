@@ -114,7 +114,7 @@ export default function ServicesDetail() {
           </h1>
           <p className='font-bold mb-3'>{card && formatPrice(card.price)}</p>
           <p className='mb-3'>
-            <b>Availability: </b>
+            <b>Trạng thái: </b>
             {card && card.status}
           </p>
           {isLoggedIn && pets?.length > 0 ? (
