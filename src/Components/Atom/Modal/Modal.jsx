@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import "./Modal.scss";
+import React, { useEffect, useRef } from 'react';
+import './Modal.scss';
 import CancelIcon from '@mui/icons-material/Cancel';
-import Button from "../Button/Button";
-import Headline from "../Headline/Headline";
+import Button from '../Button/Button';
+import Headline from '../Headline/Headline';
 
 // Based frame for Modal
 const Modal = ({ children, className, show, onHide, size }) => {
@@ -11,52 +11,48 @@ const Modal = ({ children, className, show, onHide, size }) => {
   const handleClose = (event) => {
     if (
       (!modalRef.current.contains(event.target) &&
-        event.target.classList.contains(".MuiPickersDay-root")) ||
-      event.target.classList.contains("modal-container")
+        event.target.classList.contains('.MuiPickersDay-root')) ||
+      event.target.classList.contains('modal-container')
     ) {
       onHide();
     }
 
     // Check if the clicked element or its parent contains the 'cancel-mark' class
-    if (
-      event.target.classList.contains("cancel-mark") ||
-      event.target.closest(".cancel-mark")
-    ) {
+    if (event.target.classList.contains('cancel-mark') || event.target.closest('.cancel-mark')) {
       onHide(); // Call onHide when the cancel button or its parent is clicked
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onHide(); // Call onHide when the escape key is pressed
       }
     };
 
     if (show) {
-      document.body.style.overflow = "hidden";
-      document.body.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = 'hidden';
+      document.body.addEventListener('keydown', handleKeyDown);
     } else {
-      document.body.style.overflow = "auto";
-      document.body.removeEventListener("keydown", handleKeyDown); // Cleanup event listener
+      document.body.style.overflow = 'auto';
+      document.body.removeEventListener('keydown', handleKeyDown); // Cleanup event listener
     }
 
     return () => {
-      document.body.style.overflow = "auto";
-      document.body.removeEventListener("keydown", handleKeyDown); // Cleanup event listener
+      document.body.style.overflow = 'auto';
+      document.body.removeEventListener('keydown', handleKeyDown); // Cleanup event listener
     };
   }, [show, onHide]);
 
   return (
-    <div data-testid="modal-test">
+    <div data-testid='modal-test'>
       <div
-        className={`modal-container ${show ? "opened" : "close"}`}
+        className={`modal-container ${show ? 'opened' : 'close'}`}
         onClick={handleClose}
         onKeyDown={handleClose}
       >
         <div
-          className={`modal ${className} ${show ? "modal-show" : "modal-closed"
-            } ${size}`}
+          className={`modal ${className} ${show ? 'modal-show' : 'modal-closed'} ${size}`}
           ref={modalRef}
           onClick={handleClose}
         >
@@ -68,20 +64,16 @@ const Modal = ({ children, className, show, onHide, size }) => {
 };
 
 // Modal Header
-const ModalHeader = ({ content, className }) => {
+const ModalHeader = ({ content, className, onHide }) => {
   return (
-    <div data-testid="modal-test-header">
+    <div data-testid='modal-test-header'>
       <div className={`modal-header ${className}`}>
-        <Headline
-          content={content}
-          type={"h4"}
-          className="modal-title"
-        />
+        <Headline content={content} type={'h4'} className='modal-title' />
         <Button
-          className="cancel-mark bg-transparent border-0"
-          variant={"icon-layout"}
-          onlyIcon={<CancelIcon />}
-          type={"button"}
+          className='cancel-mark bg-transparent border-0'
+          variant={'icon-layout'}
+          onlyIcon={<CancelIcon onClick={onHide} />}
+          type={'button'}
         />
       </div>
     </div>
@@ -90,7 +82,11 @@ const ModalHeader = ({ content, className }) => {
 
 // Modal Body
 const ModalBody = ({ children }) => {
-  return <div data-testid="modal-test-body" className="modal-body">{children}</div>;
+  return (
+    <div data-testid='modal-test-body' className='modal-body'>
+      {children}
+    </div>
+  );
 };
 
 // Modal Footer
@@ -99,11 +95,11 @@ const ModalFooter = ({ children, className }) => {
 };
 
 Modal.defaultProps = {
-  size: "sm",
+  size: 'sm',
 };
 
 ModalHeader.defaultProps = {
-  content: "New Content",
+  content: 'New Content',
   icon: <CancelIcon />,
 };
 

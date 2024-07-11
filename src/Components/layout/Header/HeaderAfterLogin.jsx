@@ -19,24 +19,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import './HeaderAfterLogin.scss';
 import { CartContext } from 'context/CartContext';
 import MyAxios from 'setup/configAxios';
-import useTokenExpiration from 'hooks/useAuthExpired';
 function HeaderAfterLogin() {
-  const token = localStorage.getItem('access_token'); // or wherever you store your token
-  const isTokenExpired = useTokenExpiration(token);
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [searchText, setSearchText] = useState('');
   const { cartItem } = useContext(CartContext);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
-
-  if (isTokenExpired) {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
-    navigate('/login');
-  }
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,7 +76,7 @@ function HeaderAfterLogin() {
   return (
     <Box sx={{ flexGrow: 1 }} className='header-container'>
       <AppBar position='static'>
-        <Toolbar className='header'>
+        <Toolbar className='!bg-green-800 header'>
           <div className='header-info'>
             <div className='header-phone'>
               <LocalPhoneIcon fontSize='large' className={'header-color'} />
