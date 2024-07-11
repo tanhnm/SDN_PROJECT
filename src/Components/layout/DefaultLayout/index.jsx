@@ -4,7 +4,9 @@ import Navbar from "../Navbar/Navbar";
 export default function DefaultLayout({ children }) {
   return (
     <div>
-      <HeaderAfterLogin />
+      <div className="">
+        <HeaderAfterLogin />
+      </div>
       <Navbar />
       <div>{children}</div>
       <Footer />
