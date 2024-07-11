@@ -10,7 +10,7 @@ export const registerUser = async (params) => {
       sex: params.sex,
     });
 
-    return { error: null, data };
+    return { error: null, data: data.data };
   } catch (error) {
     console.log(error);
     if (error.code === "ERR_NETWORK") {
