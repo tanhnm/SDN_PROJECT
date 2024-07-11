@@ -156,8 +156,8 @@ const LoginForm = () => {
         <div className='w-1/2 h-fit bg-white/70 flex flex-col p-20 items-center z-[10000000000000] relative '>
           <div className='w-full flex flex-col max-w-[550px]'>
             <div className='w-full flex flex-col mb-2'>
-              <h3 className='text-4xl font-semibold mb-2'>Sign in</h3>
-              <p className='text-base mb-2'>Fill your account.</p>
+              <h3 className='text-4xl font-semibold mb-2'>Đăng nhập</h3>
+              <p className='text-base mb-2'>Điền tài khoản.</p>
             </div>
             <form className='w-full flex flex-col' onSubmit={handleLogin}>
               <input
@@ -194,10 +194,10 @@ const LoginForm = () => {
                     onChange={handleRememberMeChange}
                     className='w-4 h-4 mr-2'
                   />
-                  <p className='text-sm'>Remember me</p>
+                  <p className='text-sm'>Ghi nhớ</p>
                 </div>
                 <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2'>
-                  Forget password?
+                  Quên mật khẩu?
                 </p>
               </div>
               <div className='w-full flex flex-col my-4'>
@@ -205,26 +205,20 @@ const LoginForm = () => {
                   type='submit'
                   className='w-full text-white my-2 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer'
                 >
-                  Sign in
+                  Đăng nhập
                 </button>
               </div>
             </form>
           </div>
           <div className='w-full flex items-center justify-center flex-col mt-5'>
             <p className='text-sm font-normal text-black'>
-              Do not have account ?{' '}
+              Bạn không có tài khoản ?{' '}
               <Link to='/register'>
                 <span className='font-semibold underline underline-offset-2 cursor-pointer'>
-                  Sign up now ?
+                  Đăng ký ngay
                 </span>
               </Link>
             </p>
-            <Link
-              className='text-blue-500 underline underline-offset-2 text-lg mt-2'
-              to={'/'}
-            >
-              Back to home page
-            </Link>
           </div>
         </div>
       </div>

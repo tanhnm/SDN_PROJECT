@@ -116,7 +116,7 @@ export default function UserAuthForm({ className, ...props }) {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Tên người dùng</FormLabel>
                 <FormControl>
                   <Input {...field} type='text' />
                 </FormControl>
@@ -142,7 +142,7 @@ export default function UserAuthForm({ className, ...props }) {
             name='phone'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>Số điện thoại</FormLabel>
                 <FormControl>
                   <Input {...field} type='phone' />
                 </FormControl>
@@ -155,7 +155,7 @@ export default function UserAuthForm({ className, ...props }) {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Mật khẩu</FormLabel>
                 <FormControl>
                   <Input type='password' {...field} />
                 </FormControl>
@@ -168,7 +168,7 @@ export default function UserAuthForm({ className, ...props }) {
             name='confirmPassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm password</FormLabel>
+                <FormLabel>Xác nhận mật khẩu</FormLabel>
                 <FormControl>
                   <Input type='password' {...field} />
                 </FormControl>
@@ -182,7 +182,7 @@ export default function UserAuthForm({ className, ...props }) {
               name='dob'
               render={({ field }) => (
                 <FormItem className='flex-1'>
-                  <FormLabel>Date of Birth</FormLabel>
+                  <FormLabel>Ngày sinh</FormLabel>
                   <FormControl>
                     <Input type='date' {...field} />
                   </FormControl>
@@ -195,14 +195,14 @@ export default function UserAuthForm({ className, ...props }) {
               name='sex'
               render={({ field }) => (
                 <FormItem className='flex-1'>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel>Giới tính</FormLabel>
                   <FormControl>
                     <Select
                       onValueChange={(value) => field.onChange(value)}
                       value={field.value}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder='Gender' />
+                        <SelectValue placeholder='Giới tính' />
                       </SelectTrigger>
                       <SelectContent className='!text-black !z-[100000000000000000000]'>
                         <SelectItem value='nam'>Nam</SelectItem>
@@ -220,7 +220,7 @@ export default function UserAuthForm({ className, ...props }) {
             disabled={isLoading}
             className='w-full text-white bg-primary hover:bg-primary/90'
           >
-            {isLoading ? 'Loading...' : 'Register'}
+            {isLoading ? 'Loading...' : 'Đăng ký'}
           </Button>
         </form>
       </Form>
