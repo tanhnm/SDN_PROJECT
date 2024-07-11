@@ -42,7 +42,7 @@ function Catproduct() {
   const getAll = () => {
     MyAxios.get('api/v1/products?type=product&name=other&species=cat')
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -54,7 +54,7 @@ function Catproduct() {
   const AscendingSorts = () => {
     MyAxios.get('api/v1/products/sort?type=product&name=other&species=cat&sort=asc')
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -66,7 +66,7 @@ function Catproduct() {
   const DescendingSorts = () => {
     MyAxios.get('api/v1/products/sort?type=product&name=other&species=cat&sort=desc')
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -97,7 +97,7 @@ function Catproduct() {
   };
 
   return (
-    <Container>
+    <Container className='m-4'>
       <Box
         display='flex'
         justifyContent='center'
@@ -106,17 +106,15 @@ function Catproduct() {
         mt={4}
         mb={4}
       >
-        <Box>
-          <img src={petCover} alt='Pet Cover' className='w-[50vw] hidden md:block' />
-        </Box>
         <Box textAlign='center'>
+          <img src={'10.png'} alt='Pet Cover' className='w-[50vw] hidden md:block' />
           <motion.h1
             initial={{ x: '-100%', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1 }}
             className='text-xl text-[#222a63] font-bold'
           >
-            Dog & Cat Store
+            Pet Shop
           </motion.h1>
           <motion.h1
             initial={{ x: '100%', opacity: 0 }}

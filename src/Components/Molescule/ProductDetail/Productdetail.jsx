@@ -38,7 +38,7 @@ function ProductDetail() {
   useEffect(() => {
     MyAxios.get(`http://localhost:5000/api/v1/products/${id}`)
       .then((response) => {
-        setProduct(response.data);
+        setProduct(response.data.data);
         setLoading(false);
       })
       .catch((error) => {

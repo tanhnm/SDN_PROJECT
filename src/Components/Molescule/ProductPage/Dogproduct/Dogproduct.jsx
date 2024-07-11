@@ -45,7 +45,7 @@ function Dogproduct() {
 
     MyAxios.get(url)
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
       })
       .catch((error) => {
         setError(error);
@@ -81,7 +81,7 @@ function Dogproduct() {
   }
 
   return (
-    <Container>
+    <Container className='m-4'>
       <Box
         display='flex'
         justifyContent='center'
@@ -90,17 +90,15 @@ function Dogproduct() {
         mt={4}
         mb={4}
       >
-        <Box>
-          <img src={petCover} alt='Pet Cover' className='w-[50vw] hidden md:block' />
-        </Box>
         <Box textAlign='center'>
+          <img src={'10.png'} alt='Pet Cover' className='w-[50vw] hidden md:block' />
           <motion.h1
             initial={{ x: '-100%', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1 }}
             className='text-2xl text-[#222a63] font-bold'
           >
-            Dog & Cat Store
+            Pet Shop
           </motion.h1>
           <motion.h1
             initial={{ x: '100%', opacity: 0 }}
