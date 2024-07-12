@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { LoaderCircle } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -104,7 +105,10 @@ export default function UserAuthForm({ className, ...props }) {
   }
 
   return (
-    <div className={cn("grid gap-6 space-y-4", className)} {...props}>
+    <div
+      className={cn("grid gap-6 space-y-4  px-10 border-none ", className)}
+      {...props}
+    >
       <Form {...form}>
         <form
           method="POST"
@@ -118,7 +122,11 @@ export default function UserAuthForm({ className, ...props }) {
               <FormItem>
                 <FormLabel>Tên người dùng</FormLabel>
                 <FormControl>
-                  <Input {...field} type="text" />
+                  <Input
+                    {...field}
+                    type="text"
+                    className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -131,7 +139,11 @@ export default function UserAuthForm({ className, ...props }) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" />
+                  <Input
+                    {...field}
+                    type="email"
+                    className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -144,7 +156,11 @@ export default function UserAuthForm({ className, ...props }) {
               <FormItem>
                 <FormLabel>Số điện thoại</FormLabel>
                 <FormControl>
-                  <Input {...field} type="phone" />
+                  <Input
+                    {...field}
+                    type="phone"
+                    className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -157,7 +173,11 @@ export default function UserAuthForm({ className, ...props }) {
               <FormItem>
                 <FormLabel>Mật khẩu</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <Input
+                    type="password"
+                    {...field}
+                    className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,7 +190,11 @@ export default function UserAuthForm({ className, ...props }) {
               <FormItem>
                 <FormLabel>Xác nhận mật khẩu</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <Input
+                    type="password"
+                    {...field}
+                    className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -184,7 +208,11 @@ export default function UserAuthForm({ className, ...props }) {
                 <FormItem className="flex-1">
                   <FormLabel>Ngày sinh</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} />
+                    <Input
+                      type="date"
+                      {...field}
+                      className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -194,14 +222,15 @@ export default function UserAuthForm({ className, ...props }) {
               control={form.control}
               name="sex"
               render={({ field }) => (
-                <FormItem className="flex-1">
+                <FormItem>
                   <FormLabel>Giới tính</FormLabel>
                   <FormControl>
                     <Select
                       onValueChange={(value) => field.onChange(value)}
                       value={field.value}
+                      className="border-none !bg-black"
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="border-black">
                         <SelectValue placeholder="Giới tính" />
                       </SelectTrigger>
                       <SelectContent className="!text-black !z-[100000000000000000000]">
@@ -218,9 +247,15 @@ export default function UserAuthForm({ className, ...props }) {
           </div>
           <Button
             disabled={isLoading}
-            className="w-full text-white bg-primary hover:bg-primary/90"
+            className="w-full text-white bg-primary hover:bg-primary/90 rounded-full"
           >
-            {isLoading ? "Loading..." : "Đăng ký"}
+            {isLoading ? (
+              <div className="flex gap-1 text-gray-500">
+                Loading <LoaderCircle className="animate-spin"></LoaderCircle>
+              </div>
+            ) : (
+              "Đăng ký"
+            )}
           </Button>
         </form>
       </Form>
