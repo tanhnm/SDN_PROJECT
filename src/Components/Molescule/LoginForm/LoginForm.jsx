@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MyAxios from "../../../setup/configAxios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { LoaderCircle } from "lucide-react";
 const initFormValue = {
   email: "",
   password: "",
@@ -154,11 +154,12 @@ const LoginForm = () => {
             alt="Pet Dog"
           />
         </div>
-        <div className="w-1/2 h-fit bg-white/70 flex flex-col p-20 items-center z-[10000000000000] relative ">
+        <div className="w-1/4 h-fit backdrop-blur-sm border flex flex-col p-20 items-center z-[10000000000000] relative rounded-xl font-mainText3 ">
           <div className="w-full flex flex-col max-w-[550px]">
-            <div className="w-full flex flex-col mb-2">
-              <h3 className="text-4xl font-semibold mb-2">Đăng nhập</h3>
-              <p className="text-base mb-2">Điền tài khoản.</p>
+            <div className="w-full flex flex-col justify-center items-center mb-2">
+              <h3 className="text-4xl font-semibold font-bold mb-2">
+                Đăng nhập
+              </h3>
             </div>
             <form className="w-full flex flex-col" onSubmit={handleLogin}>
               <input
@@ -167,7 +168,7 @@ const LoginForm = () => {
                 value={formValue.email}
                 onChange={handleChange}
                 placeholder="Email"
-                className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+                className="w-full text-black py-2 my-2 bg-transparent border-b  border-black outline-none focus:outline-none "
                 required
                 autoComplete="email"
               />
@@ -180,7 +181,7 @@ const LoginForm = () => {
                 value={formValue.password}
                 onChange={handleChange}
                 placeholder="Password"
-                className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+                className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none "
                 required
                 autoComplete="current-password"
               />
@@ -197,16 +198,23 @@ const LoginForm = () => {
                   />
                   <p className="text-sm">Ghi nhớ</p>
                 </div>
-                <p className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2">
+                <p className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2  hover:text-cyan-700">
                   Quên mật khẩu?
                 </p>
               </div>
               <div className="w-full flex flex-col my-4">
                 <button
                   type="submit"
-                  className="w-full text-white my-2 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
+                  className="w-full text-white my-2 rounded-full bg-[#060606]  p-4 text-center flex items-center justify-center cursor-pointer hover:bg-slate-700 hover:text-gray-100"
                 >
-                  Đăng nhập
+                  {loginFail ? (
+                    <div className="flex gap-1 text-gray-500">
+                      Loading{" "}
+                      <LoaderCircle className="animate-spin"></LoaderCircle>
+                    </div>
+                  ) : (
+                    "Đăng nhập"
+                  )}
                 </button>
               </div>
             </form>
@@ -215,7 +223,7 @@ const LoginForm = () => {
             <p className="text-sm font-normal text-black">
               Bạn không có tài khoản ?{" "}
               <Link to="/register">
-                <span className="font-semibold underline underline-offset-2 cursor-pointer">
+                <span className="font-semibold underline underline-offset-2 cursor-pointer hover:text-cyan-700">
                   Đăng ký ngay
                 </span>
               </Link>
