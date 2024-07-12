@@ -49,10 +49,18 @@ export const getAllPet = async (id) => {
     console.error(error);
   }
 };
-export const CreateServiceBooking = async (bookingData) => {
+export const CreateServiceBooking = async (
+  selectedPet,
+  timeStartService,
+  productId
+) => {
   try {
-    const response = await axiosClient.post("api/v1/service", bookingData);
-    console.log("viet", response);
+    const response = await axiosClient.post("api/v1/service", {
+      petId: selectedPet,
+      timeStartService: timeStartService,
+      productId: productId,
+    });
+    console.log("tv", response);
     return { response };
   } catch (error) {
     console.log(error);
@@ -70,5 +78,23 @@ export const CreateServiceBooking = async (bookingData) => {
     }
 
     return { error: errorMessage, data: null };
+  }
+};
+
+export const getAllBookingService = async () => {
+  try {
+    const response = await axiosClient.get(`api/v1/service`);
+    console.log("ok", response);
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const getDetailBookingService = async (id) => {
+  try {
+    const response = await axiosClient.get(`api/v1/service/${id}`);
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
   }
 };

@@ -4,10 +4,12 @@ import MyAxios from "setup/configAxios";
 export const ListProdcuts = (props) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    MyAxios.get("http://localhost:5000/api/v1/products?type=product").then((response) => {
-      setProducts(response.data);
-      console.log("aa", response);
-    });
+    MyAxios.get("http://localhost:5000/api/v1/products?type=product").then(
+      (response) => {
+        setProducts(response.data.data);
+        console.log("aa", response);
+      }
+    );
   }, []);
   const productArray = products.map((item) => {
     return {

@@ -8,30 +8,43 @@ const getAllOrder = async () => {
   }
 };
 
-const confirmOrder = async (params) => {
+const confirmOrder = async (orderId) => {
   try {
     const response = await axiosClient.post(
       `api/v1/orders/confirm`,
 
       {
-        orderId: params,
+        orderId: orderId,
       }
     );
     console.log(response);
-    return response.data;
+    return response;
   } catch (error) {
     console.error(error);
   }
 };
-const cancelOrder = async (params, reason) => {
+const cancelOrder = async (orderId, reason) => {
   try {
-    const response = await axiosClient.post(`api/v1/orders/cancel`, {
-      orderId: params,
+    const response = await axiosClient.post(`api/v1/orders/staff/cancel`, {
+      orderId: orderId,
       reason: reason,
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.error(error);
   }
 };
-export { getAllOrder, confirmOrder, cancelOrder };
+
+const completeOrder = async (orderId) => {
+  try {
+    const response = await axiosClient.post(`api/v1/orders/completed`, {
+      orderId: orderId,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllOrder, confirmOrder, cancelOrder, completeOrder };
