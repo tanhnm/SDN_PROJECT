@@ -36,32 +36,32 @@ const refreshToken = async () => {
   return access_token;
 };
 
-// Add a response interceptor
-instance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  async function (error) {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const newAccessToken = await refreshToken();
-        if (newAccessToken) {
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          return instance(originalRequest);
-        }
-      } catch (error) {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userRole');
-        window.location.href = '/login';
-        return Promise.reject(error);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+// // Add a response interceptor
+// instance.interceptors.response.use(
+//   function (response) {
+//     return response;
+//   },
+//   async function (error) {
+//     const originalRequest = error.config;
+//     if (error.response.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//       try {
+//         const newAccessToken = await refreshToken();
+//         if (newAccessToken) {
+//           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+//           return instance(originalRequest);
+//         }
+//       } catch (error) {
+//         localStorage.removeItem('access_token');
+//         localStorage.removeItem('refresh_token');
+//         localStorage.removeItem('userId');
+//         localStorage.removeItem('userRole');
+//         window.location.href = '/login';
+//         return Promise.reject(error);
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default instance;

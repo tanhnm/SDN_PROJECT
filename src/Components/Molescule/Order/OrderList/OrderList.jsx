@@ -12,7 +12,7 @@ const OrderList = () => {
   useEffect(() => {
     // Gọi API để lấy danh sách sản phẩm
     MyAxios.get('http://localhost:5000/api/v1/products?type=product').then((response) => {
-      setProducts(response.data);
+      setProducts(response.data.data);
       setProductsReady(true); // Đánh dấu rằng dữ liệu sản phẩm đã sẵn sàng
     });
 

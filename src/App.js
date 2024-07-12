@@ -1,15 +1,16 @@
-import DefaultLayout from "Components/layout/DefaultLayout";
-import { Fragment } from "react";
-import { publicRoute } from "./routes/index";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import StaffPage from "Components/Molescule/Staff/StaffPage";
+import DefaultLayout from 'Components/layout/DefaultLayout';
+import { Fragment } from 'react';
+import { publicRoute } from './routes/index';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import StaffPage from 'Components/Molescule/Staff/StaffPage';
+import useTokenExpiration from 'hooks/useAuthExpired';
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
-        <div className="App">
+        <div className='App'>
           <Routes>
             {publicRoute.map((route, index) => {
               const Page = route.component;
@@ -35,7 +36,7 @@ function App() {
         </div>
       </Router>
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -44,7 +45,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme='light'
         stacked
       />
     </div>
