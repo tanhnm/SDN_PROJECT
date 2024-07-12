@@ -25,6 +25,18 @@ import ListOrder from 'Components/Molescule/Staff/ListOrder/ListOrder';
 import OrderHistory from 'Components/Molescule/OrderHistory/OrderHistory';
 import UserProfile from 'Components/Molescule/UserProfile/UserProfile';
 import ListBooking from 'Components/Molescule/Staff/ListBooking/ListBooking';
+import ListProduct from 'Components/Molescule/Staff/ListProduct/ListProduct';
+import ListService from 'Components/Molescule/Staff/ListService/ListService';
+import DetailBooking from 'Components/Molescule/Staff/DetailBooking/DetailBooking';
+import OrderSuccess from 'Components/Molescule/Order/OrderSuccess/OrderSuccess';
+
+import Booking from 'Components/Molescule/Booking/Booking';
+import Payment from 'Components/Molescule/Payment/Payment';
+
+import Dashboard from 'Components/Molescule/Admin/components/DashBoard/DashBoard';
+import AdminPage from 'Components/Molescule/Admin/AdminPage';
+import AccountList from 'Components/Molescule/Admin/components/AccountList/AccountList';
+
 const role = localStorage.getItem('userRole');
 const publicRoute = [
   { path: '/register', component: Register, layout: null },
@@ -53,6 +65,7 @@ const publicRoute = [
   { path: '/product/search', component: ProductSearch, layout: DefaultLayout },
   { path: '/product/:id', component: Productdetail, layout: DefaultLayout },
   { path: '*', component: ErrorPage, layout: null },
+  { path: '/order-success', component: OrderSuccess, layout: null },
   { path: '/services', component: Services, layout: DefaultLayout },
   { path: '/services/:id', component: ServicesDetail, layout: DefaultLayout },
   { path: '/order', component: Order, layout: DefaultLayout },
@@ -60,7 +73,27 @@ const publicRoute = [
   { path: '/pet-info', component: Petinfo, layout: DefaultLayout },
   { path: '/order-history', component: OrderHistory, layout: DefaultLayout },
   { path: '/profile', component: UserProfile, layout: DefaultLayout },
+  { path: '/booking', component: Booking, layout: DefaultLayout },
+  { path: '/payment', component: Payment, layout: null },
 ];
+
+if (role == 'ADMIN') {
+  publicRoute.push({
+    path: '/admin',
+    component: AccountList,
+    layout: AdminPage,
+  });
+  publicRoute.push({
+    path: '/admin/dashboard',
+    component: Dashboard,
+    layout: AdminPage,
+  });
+  publicRoute.push({
+    path: '/admin/accounts',
+    component: AccountList,
+    layout: AdminPage,
+  });
+}
 if (role == 'STAFF') {
   publicRoute.push({
     path: '/staff',
@@ -75,6 +108,21 @@ if (role == 'STAFF') {
   publicRoute.push({
     path: '/staff/list-booking',
     component: ListBooking,
+    layout: StaffPage,
+  });
+  publicRoute.push({
+    path: '/staff/list-service',
+    component: ListService,
+    layout: StaffPage,
+  });
+  publicRoute.push({
+    path: '/staff/list-product',
+    component: ListProduct,
+    layout: StaffPage,
+  });
+  publicRoute.push({
+    path: '/staff/list-booking/:id',
+    component: DetailBooking,
     layout: StaffPage,
   });
 }

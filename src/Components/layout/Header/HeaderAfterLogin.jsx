@@ -83,6 +83,10 @@ function HeaderAfterLogin() {
     }
   }, [access_token]);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   return (
     <AppBar position='static' className='!bg-white'>
       <Toolbar className='flex justify-around h-40 font-mainText3'>
@@ -108,6 +112,7 @@ function HeaderAfterLogin() {
         <div className=' flex  justify-center items-center'>
           {access_token ? (
             <div className='ml-4'>
+              <UserRound fontSize='large' className='text-black ml-4' onClick={handleClick} />
               <Menu
                 id='menu-appbar'
                 anchorEl={anchorEl}

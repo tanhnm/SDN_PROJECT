@@ -1,15 +1,19 @@
-import React from "react";
-import logo from "assets/images/logoPetHome.png";
+import React from 'react';
+import { AppBar, Toolbar, Typography, Box } from '@mui/material';
+import logo from 'assets/images/logoPetHome.png';
+
 export default function Header() {
   return (
-    <div className="h-[7vh]  bg-mainColer flex justify-between">
-      <div className="p-4 text-textColer font-mainText font-bold text-xl">
-        STAFF
-      </div>
-      <div className="p-4 text-textColer font-mainText  font-bold text-2xl">
-        PET HOME
-      </div>
-      <div></div>
-    </div>
+    <AppBar position='static' sx={{ height: '7vh', backgroundColor: 'mainColer' }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant='h6' component='div' sx={{ color: 'textColer', fontWeight: 'bold' }}>
+          STAFF
+        </Typography>
+        <Typography variant='h4' component='div' sx={{ color: 'textColer', fontWeight: 'bold' }}>
+          PET SHOP
+        </Typography>
+        <Box />
+      </Toolbar>
+    </AppBar>
   );
 }
